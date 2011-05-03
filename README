@@ -1,0 +1,30 @@
+This is a mirror of http://www.vim.org/scripts/script.php?script_id=3575
+
+| <- Represents the cursor
+
+# body { | }
+
+In the above situation, pressing enter, the result is as follows
+
+# body {
+        |
+}
+
+Other examples
+
+<tr>|</tr>
+
+<tr>
+        |
+</tr>
+
+{if} | {endif}
+
+{if}
+        |
+{endif}
+
+github: http://github.com/acustodioo/vim-enter-indent
+My vimrc with this and other plugins: http://github.com/acustodioo/dotfiles
+
+PS: Sorry if the text is poorly written, I am learning English
