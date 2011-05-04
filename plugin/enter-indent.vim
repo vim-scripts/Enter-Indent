@@ -22,31 +22,39 @@ func! EnterIndent()
 	\ {'left' : '<%', 'right' : '%>'},
 	\ {'left' : '\[[^\]]*\]', 'right' : '\[/[^\]]*\]'},
 	\ {'left' : '<!--', 'right' : '-->'},
-	\ {'left' : '\(#\)\?{[^\}]*\}', 'right' : '\(#\)\?{/[^\}]*\}'},
+	\ {'left' : '\(#\)\?{[^\}]*\}', 'right' : '\(#\)\?{[^\}]*\}'},
 	\ ]
 
 	let GetLine = getline('.')
-	let LeftGetLine = strpart(GetLine, 0, col('.') - 1)
-	let RightGetLine = strpart(GetLine, col('.') - 1, col('$'))
-	let RightGetLine = substitute(RightGetLine, '^[ ]*', '', '')
+	let ColNow = col('.') - 1
+
+	let RightGetLine = substitute(
+		\ strpart(GetLine, ColNow, col('$')),
+		\ '^[ ]*', '', ''
+		\ )
 
 	if RightGetLine == "" | call feedkeys("\<CR>", 'n') | return '' | endif
 
-	let LeftGetLine = substitute(LeftGetLine, '[ ]*$', '', '')
-
 	for value in EnterIndentActive
 		if matchstr(RightGetLine, '^' . value.right) != ""
-			if matchstr(LeftGetLine, value.left . '$') != ""
-				let EnterIndentRun = 1
-			endif
-			break
+			let EnterIndentRun = 1 | break
 		endif
 	endfor
 
 	if !exists('EnterIndentRun') | call feedkeys("\<CR>", 'n') | return '' | endif
 
+	let LeftGetLine = substitute(
+		\ strpart(GetLine, 0, ColNow),
+		\ '[ ]*$', '', ''
+		\ )
+
+	if matchstr(LeftGetLine, value.left . '$') == ""
+		call feedkeys("\<CR>", 'n') | return ''
+	endif
+
 	let LineNow = line('.')
 	let Indent = substitute(LeftGetLine, '^\([ |\t]*\).*$', '\1', '')
+
 	call setline(LineNow, LeftGetLine)
 	call append(LineNow, Indent . RightGetLine)
 	call append(LineNow, Indent)

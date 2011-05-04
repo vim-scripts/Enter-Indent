@@ -1,6 +1,6 @@
 This is a mirror of http://www.vim.org/scripts/script.php?script_id=3575
 
-| <- Represents the cursor
+|  - represents the cursor
 
 # body { | }
 
@@ -18,13 +18,17 @@ Other examples
         |
 </tr>
 
-{if} | {endif}
+
+{if} | {/if}
 
 {if}
         |
-{endif}
+{/if}
 
-github: http://github.com/acustodioo/vim-enter-indent
-My vimrc with this and other plugins: http://github.com/acustodioo/dotfiles
+I recommend that you use this plugin in conjunction
+    http://www.vim.org/scripts/script.php?script_id=2754
+
+Download a zipped archive, leave bug reports and feature request here:
+    http://github.com/acustodioo/vim-enter-indent
 
 PS: Sorry if the text is poorly written, I am learning English
