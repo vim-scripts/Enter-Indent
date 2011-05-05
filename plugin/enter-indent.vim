@@ -58,7 +58,7 @@ func! EnterIndent()
 	call setline(LineNow, LeftGetLine)
 	call append(LineNow, Indent . RightGetLine)
 	call append(LineNow, Indent)
-	call feedkeys("\<Down>\<End>\<Tab>", 'n')
+	call feedkeys("\<Down>\<Esc>\A\<Tab>", 'n')
 
 	return ''
 endf
